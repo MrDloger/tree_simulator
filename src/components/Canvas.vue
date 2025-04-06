@@ -23,7 +23,7 @@ const createDNK = () => {
   return dnk;
 }
 const nextState = () => {
-  tree.run();
+  tree.growth();
   tree.draw();
   console.log(tree)
 }
@@ -36,11 +36,11 @@ onMounted(() => {
   tree = new Tree(createDNK(), ctx);
   tree.draw();
   console.log(tree)
-  tree.run();
-  tree.run();
-  tree.run();
-  tree.run();
-  tree.run();
+  tree.growth();
+  tree.growth();
+  tree.growth();
+  tree.growth();
+  tree.growth();
   tree.draw();
   console.log(tree)
 })

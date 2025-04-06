@@ -7,6 +7,7 @@ class Cell {
   }
   division() {
     const duration = Math.floor(Math.random() * 4);
+    console.log(this)
     return {pos: this.newPos(duration), gen: this.gen[duration]};
   }
   newPos(duration) {

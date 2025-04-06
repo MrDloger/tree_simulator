@@ -4,33 +4,56 @@ const SIZE_CELL = 10;
 class Tree {
   energy = 0;
   dnk;
-  cells = [];
+  buds = [];
+  stem = [];
   ctx = null;
   constructor(dnk, ctx)
   {
     this.dnk = dnk;
     this.ctx = ctx;
-    this.cells.push(new Cell(50, 49, this.dnk[0]));
+    this.buds.push(new Cell(50, 49, this.dnk[0]));
   }
   draw() {
-    for (const cell of this.cells) {
-      this.ctx.fillStyle = 'green';
-      this.ctx.fillRect(cell.pos.x * SIZE_CELL, cell.pos.y * SIZE_CELL, SIZE_CELL, SIZE_CELL);
+    console.log(this.buds)
+    for (const cell of this.buds) {
+      this.drawCell(cell.pos.x, cell.pos.y, 'white')
+    }
+    for (const cell of this.stem) {
+      this.drawCell(cell.x, cell.y, 'green')
     }
   }
-  run() {
+  drawCell(x, y, color) {
+    this.ctx.fillStyle = color;
+    this.ctx.fillRect(x * SIZE_CELL, y * SIZE_CELL, SIZE_CELL, SIZE_CELL);
+    this.ctx.fillStyle = 'black';
+    this.ctx.strokeRect(x * SIZE_CELL, y * SIZE_CELL, SIZE_CELL, SIZE_CELL);
+  }
+  growth() {
     let cellParam = [];
-    for (const cell of this.cells) {
-      cellParam.push(cell.division());
-    }
-    for (const param of cellParam) {
+    const newBuds = [];
+    // const budsIndex = {}
+    for (const cell of this.buds) {
+      let createdCell = false;
+      const param = cell.division();
+      console.log(param)
       let pixel = this.ctx.getImageData(param.pos.x * SIZE_CELL + SIZE_CELL / 2, param.pos.y * SIZE_CELL + SIZE_CELL / 2, 1, 1).data;
-      console.log(this.ctx.getImageData(param.pos.x * SIZE_CELL + SIZE_CELL / 2, param.pos.y * SIZE_CELL + SIZE_CELL / 2, 1, 1).data)
+      console.log(pixel)
       if (pixel[1] == 255 && this.dnk[param.gen]) {
-        console.log('newCell')
-        this.cells.push(new Cell(param.pos.x, param.pos.y, this.dnk[param.gen]));
+        console.log('new cell')
+        newBuds.push(new Cell(param.pos.x, param.pos.y, this.dnk[param.gen]));
+        createdCell = true;
+      }
+      if (createdCell) {
+        this.stem.push(cell.pos);
+      } else {
+        newBuds.push(cell);
       }
     }
+    // for (const param of cellParam) {
+      
+    // }
+    // this.buds = this.buds.filter((item, index) => budsIndex[index]);
+    this.buds = newBuds;
   }
 }
 
