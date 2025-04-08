@@ -7,14 +7,16 @@ class Tree {
   buds = [];
   stem = [];
   ctx = null;
-  constructor(dnk, ctx)
+  options = {};
+  constructor(dnk, ctx, options)
   {
     this.dnk = dnk;
     this.ctx = ctx;
+    this.options = options;
     this.buds.push(new Cell(50, 49, this.dnk[0]));
   }
   draw() {
-    console.log(this.buds)
+    console.log(this)
     for (const cell of this.buds) {
       this.drawCell(cell.pos.x, cell.pos.y, 'white')
     }
@@ -23,25 +25,25 @@ class Tree {
     }
   }
   drawCell(x, y, color) {
+    let sizeCell = this.options.size.cell;
     this.ctx.fillStyle = color;
-    this.ctx.fillRect(x * SIZE_CELL, y * SIZE_CELL, SIZE_CELL, SIZE_CELL);
+    this.ctx.fillRect(x * sizeCell, y * sizeCell, sizeCell, sizeCell);
     this.ctx.fillStyle = 'black';
-    this.ctx.strokeRect(x * SIZE_CELL, y * SIZE_CELL, SIZE_CELL, SIZE_CELL);
+    this.ctx.strokeRect(x * sizeCell, y * sizeCell, sizeCell, sizeCell);
   }
   growth() {
     let cellParam = [];
     const newBuds = [];
-    // const budsIndex = {}
     for (const cell of this.buds) {
       let createdCell = false;
-      const param = cell.division();
-      console.log(param)
-      let pixel = this.ctx.getImageData(param.pos.x * SIZE_CELL + SIZE_CELL / 2, param.pos.y * SIZE_CELL + SIZE_CELL / 2, 1, 1).data;
-      console.log(pixel)
-      if (pixel[1] == 255 && this.dnk[param.gen]) {
-        console.log('new cell')
-        newBuds.push(new Cell(param.pos.x, param.pos.y, this.dnk[param.gen]));
-        createdCell = true;
+      const newCells = cell.division();
+      for (const newCell of newCells) {
+        let sizeCell = this.options.size.cell;
+        let pixel = this.ctx.getImageData(newCell.pos.x * sizeCell + sizeCell / 2, newCell.pos.y * sizeCell + sizeCell / 2, 1, 1).data;
+        if (pixel[1] == 255 && this.dnk[newCell.gen]) {
+          newBuds.push(new Cell(newCell.pos.x, newCell.pos.y, this.dnk[newCell.gen]));
+          createdCell = true;
+        }
       }
       if (createdCell) {
         this.stem.push(cell.pos);
@@ -49,10 +51,6 @@ class Tree {
         newBuds.push(cell);
       }
     }
-    // for (const param of cellParam) {
-      
-    // }
-    // this.buds = this.buds.filter((item, index) => budsIndex[index]);
     this.buds = newBuds;
   }
 }

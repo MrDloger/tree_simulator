@@ -6,9 +6,12 @@ class Cell {
     this.gen = gen;
   }
   division() {
-    const duration = Math.floor(Math.random() * 4);
-    console.log(this)
-    return {pos: this.newPos(duration), gen: this.gen[duration]};
+    return [
+      {pos: this.newPos(0), gen: this.gen[0]},
+      {pos: this.newPos(1), gen: this.gen[1]},
+      {pos: this.newPos(2), gen: this.gen[2]},
+      {pos: this.newPos(3), gen: this.gen[3]},
+    ];
   }
   newPos(duration) {
     switch (duration) {
