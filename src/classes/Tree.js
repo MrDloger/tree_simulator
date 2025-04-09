@@ -17,7 +17,7 @@ class Tree {
   draw() {
     console.log(this)
     for (const cell of this.buds) {
-      this.drawCell(cell.pos.x, cell.pos.y, 'white')
+      this.drawCell(cell.pos.x, cell.pos.y, '#ccc')
     }
     for (const cell of this.stem) {
       this.drawCell(cell.x, cell.y, 'green')
@@ -36,8 +36,8 @@ class Tree {
     for (const cell of this.buds) {
       let createdCell = false;
       const newCells = cell.division();
+      const sizeCell = this.options.size.cell;
       for (const newCell of newCells) {
-        let sizeCell = this.options.size.cell;
         let pixel = this.ctx.getImageData(newCell.pos.x * sizeCell + sizeCell / 2, newCell.pos.y * sizeCell + sizeCell / 2, 1, 1).data;
         if (pixel[1] == 255 && this.dnk[newCell.gen]) {
           newBuds.push(new Cell(newCell.pos.x, newCell.pos.y, this.dnk[newCell.gen]));
