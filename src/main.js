@@ -1,7 +1,7 @@
 import './style.sass'
 
-import Tree from './classes/tree.js';
-const SIZE_WORLD = {x: 100, y: 50};
+import Tree from './classes/Tree.js';
+const SIZE_WORLD = { x: 100, y: 50 };
 const SIZE_CELL = 10;
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
@@ -24,7 +24,7 @@ btnNextState.addEventListener('click', nextState)
 canvas.width = SIZE_WORLD.x * SIZE_CELL;
 canvas.height = SIZE_WORLD.y * SIZE_CELL;
 ctx.fillStyle = 'white'
-ctx.fillRect(0,0,SIZE_WORLD.x * SIZE_CELL, SIZE_WORLD.y * SIZE_CELL)  
+ctx.fillRect(0, 0, SIZE_WORLD.x * SIZE_CELL, SIZE_WORLD.y * SIZE_CELL)
 tree = new Tree(createDNK(), ctx, {
   size: {
     world: SIZE_WORLD,

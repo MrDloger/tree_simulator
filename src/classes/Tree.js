@@ -1,4 +1,4 @@
-import Cell from './cell.js'
+import Cell from './Cell.js'
 const SIZE_CELL = 10;
 
 class Tree {
@@ -8,8 +8,7 @@ class Tree {
   stem = [];
   ctx = null;
   options = {};
-  constructor(dnk, ctx, options)
-  {
+  constructor(dnk, ctx, options) {
     this.dnk = dnk;
     this.ctx = ctx;
     this.options = options;
