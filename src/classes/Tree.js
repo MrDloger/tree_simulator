@@ -15,12 +15,11 @@ class Tree {
     this.buds.push(new Cell(50, 49, this.dnk[0]));
   }
   draw() {
-    console.log(this)
-    for (const cell of this.buds) {
-      this.drawCell(cell.pos.x, cell.pos.y, '#ccc')
-    }
     for (const cell of this.stem) {
       this.drawCell(cell.x, cell.y, 'green')
+    }
+    for (const cell of this.buds) {
+      this.drawCell(cell.pos.x, cell.pos.y, '#ccc')
     }
   }
   drawCell(x, y, color) {
@@ -31,7 +30,6 @@ class Tree {
     this.ctx.strokeRect(x * sizeCell, y * sizeCell, sizeCell, sizeCell);
   }
   growth() {
-    let cellParam = [];
     const newBuds = [];
     for (const cell of this.buds) {
       let createdCell = false;
@@ -41,6 +39,8 @@ class Tree {
         let pixel = this.ctx.getImageData(newCell.pos.x * sizeCell + sizeCell / 2, newCell.pos.y * sizeCell + sizeCell / 2, 1, 1).data;
         if (pixel[1] == 255 && this.dnk[newCell.gen]) {
           newBuds.push(new Cell(newCell.pos.x, newCell.pos.y, this.dnk[newCell.gen]));
+          this.drawCell(newCell.pos.x, newCell.pos.y, "#ccc");
+          this.drawCell(cell.pos.x, cell.pos.y, "green");
           createdCell = true;
         }
       }

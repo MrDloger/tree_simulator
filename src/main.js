@@ -5,7 +5,6 @@ const SIZE_WORLD = { x: 100, y: 50 };
 const SIZE_CELL = 10;
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
-const btnNextState = document.getElementById('nextState');
 let tree = null;
 
 const createDNK = () => {
@@ -19,7 +18,17 @@ const nextState = () => {
   tree.growth();
   tree.draw();
 }
-btnNextState.addEventListener('click', nextState)
+function run() {
+  if (this.interval) {
+    clearInterval(this.interval);
+    this.interval = null
+  } else {
+    this.interval = setInterval(nextState, 1000);
+  }
+
+}
+document.getElementById('nextState').addEventListener('click', nextState);
+document.getElementById('run').addEventListener('click', run);
 
 canvas.width = SIZE_WORLD.x * SIZE_CELL;
 canvas.height = SIZE_WORLD.y * SIZE_CELL;
@@ -32,9 +41,4 @@ tree = new Tree(createDNK(), ctx, {
   }
 });
 tree.draw();
-tree.growth();
-tree.growth();
-tree.growth();
-tree.growth();
-tree.growth();
-tree.draw();
+
