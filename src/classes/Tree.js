@@ -1,5 +1,4 @@
 import Cell from './Cell.js'
-const SIZE_CELL = 10;
 
 class Tree {
   energy = 0;
