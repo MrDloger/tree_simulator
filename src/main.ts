@@ -2,6 +2,7 @@ import './style.sass'
 
 import Tree from "./classes/Tree.ts";
 import Screen from "./classes/Screen.ts"
+import { runFunction } from "./types/system.ts"
 
 const SIZE_WORLD = { x: 100, y: 50 };
 const SIZE_CELL = 10;
@@ -23,13 +24,13 @@ const nextState = () => {
   tree.growth();
   tree.draw();
 }
-let interval: any = null
-function run(this: Function) {
-  if (interval) {
-    clearInterval(interval);
-    interval = null
+
+function run(this: runFunction) {
+  if (this.interval) {
+    clearInterval(this.interval);
+    this.interval = null
   } else {
-    interval = setInterval(nextState, 250);
+    this.interval = setInterval(nextState, 250);
   }
 
 }
@@ -37,7 +38,7 @@ const btnNext: HTMLButtonElement = <HTMLButtonElement>document.getElementById('n
 btnNext.addEventListener('click', nextState);
 const btnRun: HTMLButtonElement = <HTMLButtonElement>document.getElementById('run');
 btnRun.addEventListener('click', run);
-
+console.log(typeof run)
 tree = new Tree(createDNK(), screen);
 tree.draw();
 
