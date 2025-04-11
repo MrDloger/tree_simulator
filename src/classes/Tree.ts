@@ -1,12 +1,14 @@
-import Cell from './Cell.js'
+import Cell from "./Cell.ts";
+import DnkType from "../types/DnkType.ts";
+import Screen from "./Screen.ts";
 
 class Tree {
-  energy = 0;
-  dnk;
-  buds = [];
-  stem = [];
-  screen = null;
-  constructor(dnk, screen) {
+  energy: number = 0;
+  dnk: Array<DnkType>;
+  buds: Array<Cell> = [];
+  stem: Array<{ x: number, y: number }> = [];
+  screen: Screen;
+  constructor(dnk: Array<DnkType>, screen: Screen) {
     this.dnk = dnk;
     this.screen = screen;
     this.buds.push(new Cell(Math.floor(Math.random() * 100), 49, this.dnk[0]));
@@ -19,12 +21,13 @@ class Tree {
       this.drawCell(cell.pos.x, cell.pos.y, '#ccc')
     }
   }
-  drawCell(x, y, color) {
+  drawCell(x: number, y: number, color: string) {
     let sizeCell = this.screen.options.size.cell;
-    this.screen.ctx.fillStyle = color;
-    this.screen.ctx.fillRect(x * sizeCell, y * sizeCell, sizeCell, sizeCell);
-    this.screen.ctx.fillStyle = 'black';
-    this.screen.ctx.strokeRect(x * sizeCell, y * sizeCell, sizeCell, sizeCell);
+    const ctx: CanvasRenderingContext2D = this.screen.getCtx();
+    ctx.fillStyle = color;
+    ctx.fillRect(x * sizeCell, y * sizeCell, sizeCell, sizeCell);
+    ctx.fillStyle = 'black';
+    ctx.strokeRect(x * sizeCell, y * sizeCell, sizeCell, sizeCell);
   }
   growth() {
     const newBuds = [];
@@ -32,8 +35,9 @@ class Tree {
       let createdCell = false;
       const newCells = cell.division();
       const sizeCell = this.screen.options.size.cell;
+      const ctx: CanvasRenderingContext2D = this.screen.getCtx();
       for (const newCell of newCells) {
-        let pixel = this.screen.ctx.getImageData(newCell.pos.x * sizeCell + sizeCell / 2, newCell.pos.y * sizeCell + sizeCell / 2, 1, 1).data;
+        let pixel = ctx.getImageData(newCell.pos.x * sizeCell + sizeCell / 2, newCell.pos.y * sizeCell + sizeCell / 2, 1, 1).data;
         if (pixel[1] == 255 && this.dnk[newCell.gen]) {
           newBuds.push(new Cell(newCell.pos.x, newCell.pos.y, this.dnk[newCell.gen]));
           this.drawCell(newCell.pos.x, newCell.pos.y, "#ccc");

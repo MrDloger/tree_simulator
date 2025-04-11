@@ -1,11 +1,11 @@
 import './style.sass'
 
-import Tree from "./classes/Tree.js";
-import Screen from "./classes/Screen.js"
+import Tree from "./classes/Tree.ts";
+import Screen from "./classes/Screen.ts"
 
 const SIZE_WORLD = { x: 100, y: 50 };
 const SIZE_CELL = 10;
-let tree = null;
+let tree: Tree;
 const screen = new Screen('canvas', {
   size: {
     world: SIZE_WORLD,
@@ -23,17 +23,20 @@ const nextState = () => {
   tree.growth();
   tree.draw();
 }
-function run() {
-  if (this.interval) {
-    clearInterval(this.interval);
-    this.interval = null
+let interval: any = null
+function run(this: Function) {
+  if (interval) {
+    clearInterval(interval);
+    interval = null
   } else {
-    this.interval = setInterval(nextState, 250);
+    interval = setInterval(nextState, 250);
   }
 
 }
-document.getElementById('nextState').addEventListener('click', nextState);
-document.getElementById('run').addEventListener('click', run);
+const btnNext: HTMLButtonElement = <HTMLButtonElement>document.getElementById('nextState');
+btnNext.addEventListener('click', nextState);
+const btnRun: HTMLButtonElement = <HTMLButtonElement>document.getElementById('run');
+btnRun.addEventListener('click', run);
 
 tree = new Tree(createDNK(), screen);
 tree.draw();
