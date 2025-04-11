@@ -1,5 +1,3 @@
-class runFunction extends Function {
-  public interval: any;
+export interface runFunction extends Function {
+ interval: number | null;
 }
-
-export { runFunction };
