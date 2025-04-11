@@ -5,13 +5,11 @@ class Tree {
   dnk;
   buds = [];
   stem = [];
-  ctx = null;
-  options = {};
-  constructor(dnk, ctx, options) {
+  screen = null;
+  constructor(dnk, screen) {
     this.dnk = dnk;
-    this.ctx = ctx;
-    this.options = options;
-    this.buds.push(new Cell(50, 49, this.dnk[0]));
+    this.screen = screen;
+    this.buds.push(new Cell(Math.floor(Math.random() * 100), 49, this.dnk[0]));
   }
   draw() {
     for (const cell of this.stem) {
@@ -22,20 +20,20 @@ class Tree {
     }
   }
   drawCell(x, y, color) {
-    let sizeCell = this.options.size.cell;
-    this.ctx.fillStyle = color;
-    this.ctx.fillRect(x * sizeCell, y * sizeCell, sizeCell, sizeCell);
-    this.ctx.fillStyle = 'black';
-    this.ctx.strokeRect(x * sizeCell, y * sizeCell, sizeCell, sizeCell);
+    let sizeCell = this.screen.options.size.cell;
+    this.screen.ctx.fillStyle = color;
+    this.screen.ctx.fillRect(x * sizeCell, y * sizeCell, sizeCell, sizeCell);
+    this.screen.ctx.fillStyle = 'black';
+    this.screen.ctx.strokeRect(x * sizeCell, y * sizeCell, sizeCell, sizeCell);
   }
   growth() {
     const newBuds = [];
     for (const cell of this.buds) {
       let createdCell = false;
       const newCells = cell.division();
-      const sizeCell = this.options.size.cell;
+      const sizeCell = this.screen.options.size.cell;
       for (const newCell of newCells) {
-        let pixel = this.ctx.getImageData(newCell.pos.x * sizeCell + sizeCell / 2, newCell.pos.y * sizeCell + sizeCell / 2, 1, 1).data;
+        let pixel = this.screen.ctx.getImageData(newCell.pos.x * sizeCell + sizeCell / 2, newCell.pos.y * sizeCell + sizeCell / 2, 1, 1).data;
         if (pixel[1] == 255 && this.dnk[newCell.gen]) {
           newBuds.push(new Cell(newCell.pos.x, newCell.pos.y, this.dnk[newCell.gen]));
           this.drawCell(newCell.pos.x, newCell.pos.y, "#ccc");
