@@ -1,10 +1,11 @@
-import ScreenOption from "../../types/ScreenOptions.ts";
+import ScreenOptions from "../../types/ScreenOptions.ts";
+import Tree from "../Tree/Tree.ts";
 
 class Screen {
   private canvas: HTMLCanvasElement;
   private ctx: CanvasRenderingContext2D;
-  public options: ScreenOption;
-  constructor(idCanvas: string, option: ScreenOption) {
+  public options: ScreenOptions;
+  constructor(idCanvas: string, option: ScreenOptions) {
     this.options = option;
     this.canvas = <HTMLCanvasElement>document.getElementById(idCanvas);
     this.ctx = <CanvasRenderingContext2D>this.canvas?.getContext("2d");
@@ -20,6 +21,11 @@ class Screen {
   }
   get getCtx(): CanvasRenderingContext2D {
     return this.ctx;
+  }
+  drawScene(trees: Array<Tree>) {
+    trees.forEach((tree) => {
+      tree.draw();
+    });
   }
 }
 

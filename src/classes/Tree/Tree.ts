@@ -3,9 +3,11 @@ import Screen from "../util/Screen.ts";
 import { Pos } from "../../types/CellTypes.ts";
 import SeedCell from "./SeedCell.ts";
 import StemCell from "./StemCell.ts";
+import { randomRgbColor } from "../util/utils.ts";
 
 class Tree {
   energy: number = 0;
+  color: string;
   dnk: DNK;
   seeds: Array<SeedCell> = [];
   stems: Array<StemCell> = [];
@@ -13,13 +15,14 @@ class Tree {
   constructor(dnk: DNK, screen: Screen) {
     this.dnk = dnk;
     this.screen = screen;
+    this.color = randomRgbColor();
     this.seeds.push(
       new SeedCell({ x: Math.floor(Math.random() * 100), y: 49 }, this.dnk[0])
     );
   }
   draw() {
     for (const cell of this.stems) {
-      this.drawCell(cell.pos, "green");
+      cell.draw(this.screen, this.color);
     }
     for (const cell of this.seeds) {
       this.drawCell(cell.pos, "#ccc");

@@ -7,7 +7,7 @@ import { DNK } from "./types/DnkType.ts";
 
 const SIZE_WORLD = { x: 100, y: 50 };
 const SIZE_CELL = 10;
-let tree: Tree;
+let trees: Array<Tree> = [];
 const screen = new Screen("canvas", {
   size: {
     world: SIZE_WORLD,
@@ -27,8 +27,10 @@ const createDNK = (): DNK => {
   return dnk;
 };
 const nextState = () => {
-  tree.growth();
-  tree.draw();
+  trees.forEach((tree: Tree) => {
+    tree.growth();
+    tree.draw();
+  });
 };
 
 function run(this: runFunction) {
@@ -48,6 +50,7 @@ function run(this: runFunction) {
   "click",
   run
 );
-
-tree = new Tree(createDNK(), screen);
-tree.draw();
+for (let i = 0; i < 4; i++) {
+  trees.push(new Tree(createDNK(), screen));
+}
+screen.drawScene(trees);
