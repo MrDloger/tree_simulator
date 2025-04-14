@@ -6,7 +6,7 @@ import StemCell from "./StemCell.ts";
 import { randomRgbColor } from "../util/utils.ts";
 
 class Tree {
-  energy: number = 0;
+  energy: number = 300;
   color: string;
   seeds: Array<SeedCell> = [];
   stems: Array<StemCell> = [];
@@ -25,13 +25,12 @@ class Tree {
       this.drawCell(cell.pos, "#ccc");
     }
   }
-  drawCell(pos: Pos, color: string) {
+  drawCell(pos: Pos, color: string, borderColor: string = 'black') {
+    console.log(borderColor);
     let sizeCell = Screen.getInstanse().options.size.cell;
     const ctx: CanvasRenderingContext2D = Screen.getInstanse().ctx;
     ctx.fillStyle = color;
     ctx.fillRect(pos.x * sizeCell, pos.y * sizeCell, sizeCell, sizeCell);
-    ctx.fillStyle = "black";
-    ctx.strokeRect(pos.x * sizeCell, pos.y * sizeCell, sizeCell, sizeCell);
   }
 
   growth() {
@@ -55,6 +54,15 @@ class Tree {
       }
     }
     this.seeds = newSeeds;
+  }
+  deed() {
+    for (const seed of this.seeds) {
+      this.drawCell(seed.pos, 'white', 'white');
+    }
+    for (const stem of this.stems) {
+      this.drawCell(stem.pos, 'white', 'white');
+    }
+    this.stems = [];
   }
 }
 

@@ -19,9 +19,13 @@ export class Population {
     for (const stem of tree.stems) {
       tree.energy += this.getEnergy(stem);
     }
-    for (const seed of tree.seeds) {
-      seed.addEnergy(this.getEnergy(seed));
-      console.log(seed.energy)
+    tree.energy -= tree.stems.length * 11;
+    if (tree.energy <= 0) {
+      tree.deed()
+    } else {
+      for (const seed of tree.seeds) {
+        seed.addEnergy(this.getEnergy(seed));
+      }
     }
   }
 }

@@ -33,6 +33,7 @@ const nextState = () => {
     population.addEnergy(tree);
     tree.growth();
     tree.draw();
+    console.log('treeEnergy', tree.energy)
   });
 };
 

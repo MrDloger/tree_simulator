@@ -15,13 +15,6 @@ abstract class Cell {
       sizeCell,
       sizeCell
     );
-    ctx.fillStyle = "black";
-    ctx.strokeRect(
-      this.pos.x * sizeCell,
-      this.pos.y * sizeCell,
-      sizeCell,
-      sizeCell
-    );
   }
   addEnergy(energy: number) {
     this.energy += energy;
