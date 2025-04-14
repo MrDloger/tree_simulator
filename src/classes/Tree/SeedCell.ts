@@ -7,9 +7,13 @@ class SeedCell extends Cell {
     super(pos);
   }
   division(): Array<NewCellOpt> {
-    const newCells: Array<NewCellOpt> = [];
+    let newCells: Array<NewCellOpt> = [];
     for (let i = 0; i < 4; i++) {
       newCells.push({ pos: this.newPos(i), gen: this.genom[i] });
+    }
+    // console.log(newCells.length * 12, this.energy)
+    if (this.energy < newCells.length * 12) {
+      newCells = [];
     }
     return newCells;
   }
