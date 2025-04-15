@@ -1,10 +1,10 @@
 import "./style.sass";
 
 import Tree from "./classes/Tree/Tree.ts";
-import Screen from "./classes/util/Screen.ts";
+import Screen from "./classes/utils/Screen.ts";
 import { runFunction } from "./types/system.ts";
 import { DNK } from "./types/DnkType.ts";
-import { Population } from "./classes/util/Population.ts";
+import { Population } from "./classes/utils/Population.ts";
 
 const SIZE_WORLD = { x: 100, y: 50 };
 const SIZE_CELL = 10;

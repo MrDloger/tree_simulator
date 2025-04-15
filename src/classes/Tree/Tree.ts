@@ -1,9 +1,9 @@
 import { DNK } from "../../types/DnkType.ts";
-import Screen from "../util/Screen.ts";
+import Screen from "../utils/Screen.ts";
 import { Pos } from "../../types/CellTypes.ts";
 import SeedCell from "./SeedCell.ts";
 import StemCell from "./StemCell.ts";
-import { randomRgbColor } from "../util/utils.ts";
+import { randomRgbColor } from "../utils/utils.ts";
 
 class Tree {
   energy: number = 300;

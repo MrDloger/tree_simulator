@@ -1,5 +1,5 @@
 import type { Pos } from "../../types/CellTypes.ts";
-import Screen from "../util/Screen.ts";
+import Screen from "../utils/Screen.ts";
 
 abstract class Cell {
   public energy: number = 0;
