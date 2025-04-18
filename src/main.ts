@@ -29,12 +29,8 @@ const createDNK = (): DNK => {
   return dnk;
 };
 const nextState = () => {
-  trees.forEach((tree: Tree) => {
-    population.addEnergy(tree);
-    tree.growth();
-    tree.draw();
-    console.log('treeEnergy', tree.energy)
-  });
+  trees = population.tick(trees);
+  Screen.getInstanse().drawScene();
 };
 
 function run(this: runFunction) {
@@ -55,6 +51,8 @@ function run(this: runFunction) {
   run
 );
 for (let i = 0; i < 1; i++) {
-  trees.push(new Tree(createDNK()));
+  trees.push(new Tree(createDNK(), { x: Math.floor(Math.random() * 100), y: Math.floor(Math.random() * 10 + 40) }));
 }
-screen.drawScene(trees);
+
+population.tick(trees);
+screen.drawScene();

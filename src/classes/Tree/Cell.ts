@@ -7,9 +7,9 @@ abstract class Cell {
   draw(color: string) {
     let screen: Screen = Screen.getInstanse();
     let sizeCell = screen.options.size.cell;
-    const ctx: CanvasRenderingContext2D = screen.ctx;
-    ctx.fillStyle = color;
-    ctx.fillRect(
+    const buffer: CanvasRenderingContext2D = screen.buffer;
+    buffer.fillStyle = color;
+    buffer.fillRect(
       this.pos.x * sizeCell,
       this.pos.y * sizeCell,
       sizeCell,
@@ -24,7 +24,6 @@ abstract class Cell {
     let posY: number = this.pos.y - 1;
     while (posY > 0) {
       if (Screen.getInstanse().getPixelCell(this.pos.x, posY)[1] !== 255) {
-
         ++level
       }
       if (level > 3) break;
