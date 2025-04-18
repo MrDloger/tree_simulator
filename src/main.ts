@@ -38,7 +38,7 @@ function run(this: runFunction) {
     clearInterval(this.interval);
     this.interval = null;
   } else {
-    this.interval = setInterval(nextState, 250);
+    this.interval = setInterval(nextState, 1000 / 30);
   }
 }
 
