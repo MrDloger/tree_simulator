@@ -20,6 +20,7 @@ class Screen {
     this._buffer.canvas.height = this.options.size.world.y * this.options.size.cell;
     this._buffer.fillStyle = "white";
     this._buffer.fillRect(
+
       0,
       0,
       this.options.size.world.x * this.options.size.cell,
